@@ -1,5 +1,5 @@
-export default interface User{
-    id?:number,
+export default interface Store{
+    id?:string,
     nombre?:string,
     email?:string,
     direccion?:string,
