@@ -10,7 +10,6 @@ export default class UserPostgresRepository implements UserRepository{
         const rows = await executeQuery(sql);
 
         const insertedUser:User = {
-            id: rows[0].id,
             nombre: rows[0].nombre,
             email: rows[0].email,
             password: rows[0].password,
@@ -28,7 +27,6 @@ export default class UserPostgresRepository implements UserRepository{
             throw new Error('Usuario o contraseña incorrectos');
         }
         const userFromDb:User = {
-            id: rows[0].id,
             nombre: rows[0].nombre,
             email: rows[0].email,
             password: rows[0].password,
@@ -46,7 +44,6 @@ export default class UserPostgresRepository implements UserRepository{
             return null;
         }
         const user:User = {
-            id: rows[0].id,
             nombre: rows[0].nombre,
             email: rows[0].email,
             password: rows[0].password,
@@ -63,7 +60,6 @@ export default class UserPostgresRepository implements UserRepository{
             return null;
         }
         const user:User = {
-            id: rows[0].id,
             nombre: rows[0].nombre,
             email: rows[0].email,
             password: rows[0].password,

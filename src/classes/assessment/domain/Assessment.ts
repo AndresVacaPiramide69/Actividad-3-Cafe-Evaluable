@@ -1,7 +1,10 @@
 export default interface Assessment{
     userName?:string,
+    userEmail?:string,
     nombreCafe?:string,
     tuesteCafe?:string,
+    origenCafe?:string,
     nombreTienda?:string,
-    valoracion?:number   
+    emailTienda?:string,
+    valoracion?:number
 }
