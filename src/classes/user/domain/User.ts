@@ -1,6 +1,6 @@
 export default interface User{
     nombre?:string,
     email?:string,
-    direccion?:string,
+    domicilio?:string,
     password?:string    
 }

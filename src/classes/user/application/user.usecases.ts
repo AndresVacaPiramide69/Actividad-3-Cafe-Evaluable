@@ -10,7 +10,7 @@ export default class UserUseCases{
 
     async createUser(user: User): Promise<User> {
 
-        if(!user.nombre || !user.email || !user.password || !user.direccion)
+        if(!user.nombre || !user.email || !user.password || !user.domicilio)
             throw new Error('Faltan datos');
 
         user.password = hash(user.password);
