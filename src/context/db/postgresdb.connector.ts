@@ -1,9 +1,12 @@
 import { Pool } from "pg";
+import dotenv from 'dotenv';
+dotenv.config()
+
 
 const dbHost = process.env.POSTGRES_HOST;
 const dbUser = process.env.POSTGRES_USER;
 const dbPassword = process.env.POSTGRES_PASSWORD;
-const dbName = process.env.POSTGRES_DB;
+const dbName = process.env.POSTGRES_NAME;
 
 const pool = new Pool({
     max: 1000,

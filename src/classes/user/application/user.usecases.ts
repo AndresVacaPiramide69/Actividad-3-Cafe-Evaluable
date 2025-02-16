@@ -24,11 +24,14 @@ export default class UserUseCases{
         if(!user.email || !user.password)
             throw new Error('Faltan datos');
 
-        const equals = compare(user.password, user.password);
+        const userFromDb = await this.repository.login(user)
+
+        const equals = compare(user.password, userFromDb.password);
+
         if(!equals)
             throw new Error('Usuario o contraseña incorrectos');
 
-        return await this.repository.login(user);
+        return userFromDb;
     }
 
     async findByEmail(email: string): Promise<User | null> {

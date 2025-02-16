@@ -5,7 +5,7 @@ export default class UserPostgresRepository implements UserRepository{
     
     async createUser(user: User): Promise<User> {
 
-        const sql = `INSERT INTO user (nombre, email, password, domicilio) VALUES ('${user.nombre}', '${user.email}', '${user.password}', '${user.domicilio}') RETURNING *`;
+        const sql = `INSERT INTO "user" (nombre, email, password, domicilio) VALUES ('${user.nombre}', '${user.email}', '${user.password}', '${user.domicilio}') RETURNING *`;
 
         const rows = await executeQuery(sql);
 
@@ -20,12 +20,14 @@ export default class UserPostgresRepository implements UserRepository{
     }
 
     async login(user: User): Promise<User> {
-        const sql = `SELECT * FROM user WHERE email = '${user.email}'`;
+        
+        const sql = `SELECT * FROM "user" WHERE email = '${user.email}'`;
         const rows = await executeQuery(sql);
-
+        
         if(rows.length === 0){
             throw new Error('Usuario o contraseña incorrectos');
         }
+        
         const userFromDb:User = {
             nombre: rows[0].nombre,
             email: rows[0].email,
