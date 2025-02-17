@@ -47,7 +47,7 @@ router.post('/login', async(req:Request, res:Response) => {
             res.status(400).send({Mensaje:'Error de inicio de sesion'})
         else {
             const token = createToken(userFromDb);
-            res.status(201).send({ Token : token});
+            res.status(201).send({token});
         }
     } catch (error) {
         res.status(400).json({Mensaje:error.message})

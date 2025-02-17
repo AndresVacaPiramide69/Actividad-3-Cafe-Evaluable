@@ -1,5 +1,6 @@
 import express, { Response, Request} from 'express';
 import { routerUser } from './classes/user/infrastructure/rest/user.routes'
+import { routerCafes } from './classes/coffe/infrastructure/rest/coffe.routes'
 import dotenv from 'dotenv'
 import cors from 'cors';
 dotenv.config();
@@ -21,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', routerUser);
-
+app.use('/api/cafe', routerCafes)
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
