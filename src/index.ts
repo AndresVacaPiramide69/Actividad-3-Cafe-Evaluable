@@ -1,5 +1,6 @@
 import express, { Response, Request} from 'express';
 import { routerUser } from './classes/user/infrastructure/rest/user.routes'
+import { routerCarrito } from './classes/cart/infrastructure/rest/cart.routes'
 import { routerCafes } from './classes/coffe/infrastructure/rest/coffe.routes'
 import dotenv from 'dotenv'
 import cors from 'cors';
@@ -22,7 +23,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', routerUser);
-app.use('/api/cafe', routerCafes)
+app.use('/api/cafe', routerCafes);
+app.use('/api/cart', routerCarrito)
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
