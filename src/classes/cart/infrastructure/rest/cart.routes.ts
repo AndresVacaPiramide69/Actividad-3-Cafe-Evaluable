@@ -11,7 +11,7 @@ const cartUseCases:CartUseCases = new CartUseCases(cartRepo);
 
 const router = express.Router();
 
-router.post('/', isAuth, async(req:Request, res:Response) => {
+router.get('/', isAuth, async(req:Request, res:Response) => {
 
     try {
         const { email, nombre } = req.body;
