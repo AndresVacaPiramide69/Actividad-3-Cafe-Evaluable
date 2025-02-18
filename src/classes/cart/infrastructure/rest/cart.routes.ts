@@ -5,6 +5,7 @@ import CartUseCases from '../../application/cart.usecases'
 import { isAuth } from '../../../../context/security/auth'
 import Cart from '../../domain/Cart'
 import User from '../../../user/domain/User'
+import Coffe from '../../../coffe/domain/Coffe'
 
 const cartRepo:CartRepository = new CartPostgresRepository();
 const cartUseCases:CartUseCases = new CartUseCases(cartRepo);
@@ -31,5 +32,19 @@ router.get('/', isAuth, async(req:Request, res:Response) => {
         res.status(400).send({message:error.message})
     }
 });
+
+router.post('/addCoffe', isAuth, async(req:Request, res:Response) => {
+    try {
+        const { nombre , email } = req.body;
+        const { coffe } = req.body;
+
+
+        const cartFromDb = await cartUseCases.addToCart({nombre, email}, coffe)
+    } catch (error) {
+        // Manejar errores
+         res.status(500).send({ message: error.message || 'Error interno del servidor' });
+    }
+});
+
 
 export { router as routerCarrito };
