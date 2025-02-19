@@ -401,3 +401,65 @@ INSERT INTO "tienda" (nombre, email, password, domicilio) VALUES
 ('Tienda3', 'tienda3@example.com', 'pass3', 'Plaza Mayor 5'),
 ('Tienda4', 'tienda4@example.com', 'pass4', 'Camino Real 88'),
 ('Tienda5', 'tienda5@example.com', 'pass5', 'Boulevard de la Luz 101');
+
+-- Cafés para 'Café Aroma' (17 cafés)
+INSERT INTO "cafe" (nombre, origen, tueste, tienda_nombre, tienda_email, precio, peso) 
+VALUES
+  ('Café Especial Colombia', 'Colombia', 'Medio', 'Café Aroma', 'contacto@cafearoma.com', 12.50, 500),
+  ('Blend Brasileño', 'Brasil', 'Oscuro', 'Café Aroma', 'contacto@cafearoma.com', 15.00, 250),
+  ('Arabica Etiopía', 'Etiopía', 'Ligero', 'Café Aroma', 'contacto@cafearoma.com', 18.00, 1000),
+  ('Costa Rica Tarrazú', 'Costa Rica', 'Medio', 'Café Aroma', 'contacto@cafearoma.com', 14.75, 500),
+  ('Guatemala Antigua', 'Guatemala', 'Oscuro', 'Café Aroma', 'contacto@cafearoma.com', 16.90, 750),
+  ('Java Blue Mountain', 'Indonesia', 'Ligero', 'Café Aroma', 'contacto@cafearoma.com', 22.00, 250),
+  ('Perú Chanchamayo', 'Perú', 'Medio', 'Café Aroma', 'contacto@cafearoma.com', 11.50, 500),
+  ('Honduras SHG', 'Honduras', 'Oscuro', 'Café Aroma', 'contacto@cafearoma.com', 13.25, 1000),
+  ('Kenia AA', 'Kenia', 'Ligero', 'Café Aroma', 'contacto@cafearoma.com', 19.99, 500),
+  ('Nicaragua Maragogype', 'Nicaragua', 'Medio', 'Café Aroma', 'contacto@cafearoma.com', 17.50, 750),
+  ('México Altura', 'México', 'Oscuro', 'Café Aroma', 'contacto@cafearoma.com', 12.99, 500),
+  ('India Monsoon', 'India', 'Ligero', 'Café Aroma', 'contacto@cafearoma.com', 20.50, 250),
+  ('El Salvador Bourbon', 'El Salvador', 'Medio', 'Café Aroma', 'contacto@cafearoma.com', 14.20, 1000),
+  ('Tanzania Peaberry', 'Tanzania', 'Oscuro', 'Café Aroma', 'contacto@cafearoma.com', 16.75, 500),
+  ('Vietnam Robusta', 'Vietnam', 'Ligero', 'Café Aroma', 'contacto@cafearoma.com', 9.99, 750),
+  ('Ecuador Galápagos', 'Ecuador', 'Medio', 'Café Aroma', 'contacto@cafearoma.com', 21.00, 500),
+  ('Papúa Nueva Guinea', 'Papúa Nueva Guinea', 'Oscuro', 'Café Aroma', 'contacto@cafearoma.com', 18.50, 250);
+
+-- Cafés para 'Tostaduría Premium' (17 cafés)
+INSERT INTO "cafe" (nombre, origen, tueste, tienda_nombre, tienda_email, precio, peso)
+VALUES
+  ('Premium Colombia Supremo', 'Colombia', 'Oscuro', 'Tostaduría Premium', 'info@tostaduriapremium.com', 24.50, 500),
+  ('Brasil Santos', 'Brasil', 'Ligero', 'Tostaduría Premium', 'info@tostaduriapremium.com', 13.99, 750),
+  ('Etiopía Yirgacheffe', 'Etiopía', 'Medio', 'Tostaduría Premium', 'info@tostaduriapremium.com', 27.00, 250),
+  ('Costa Rica La Minita', 'Costa Rica', 'Oscuro', 'Tostaduría Premium', 'info@tostaduriapremium.com', 19.95, 500),
+  ('Guatemala Huehuetenango', 'Guatemala', 'Ligero', 'Tostaduría Premium', 'info@tostaduriapremium.com', 23.75, 1000),
+  ('Sumatra Mandheling', 'Indonesia', 'Medio', 'Tostaduría Premium', 'info@tostaduriapremium.com', 16.50, 750),
+  ('Perú Organic', 'Perú', 'Oscuro', 'Tostaduría Premium', 'info@tostaduriapremium.com', 15.25, 500),
+  ('Honduras Marcala', 'Honduras', 'Ligero', 'Tostaduría Premium', 'info@tostaduriapremium.com', 18.00, 250),
+  ('Kenia AA Plus', 'Kenia', 'Medio', 'Tostaduría Premium', 'info@tostaduriapremium.com', 29.99, 500),
+  ('Nicaragua Jinotega', 'Nicaragua', 'Oscuro', 'Tostaduría Premium', 'info@tostaduriapremium.com', 17.80, 1000),
+  ('México Pluma', 'México', 'Ligero', 'Tostaduría Premium', 'info@tostaduriapremium.com', 14.50, 750),
+  ('India Plantation A', 'India', 'Medio', 'Tostaduría Premium', 'info@tostaduriapremium.com', 22.25, 500),
+  ('El Salvador Pacamara', 'El Salvador', 'Oscuro', 'Tostaduría Premium', 'info@tostaduriapremium.com', 20.00, 250),
+  ('Tanzania Mbeya', 'Tanzania', 'Ligero', 'Tostaduría Premium', 'info@tostaduriapremium.com', 16.99, 500),
+  ('Vietnam Dak Lak', 'Vietnam', 'Medio', 'Tostaduría Premium', 'info@tostaduriapremium.com', 12.75, 750),
+  ('Ecuador Loja', 'Ecuador', 'Oscuro', 'Tostaduría Premium', 'info@tostaduriapremium.com', 19.50, 500),
+  ('Hawaii Kona', 'Hawái', 'Ligero', 'Tostaduría Premium', 'info@tostaduriapremium.com', 45.00, 250);
+
+-- Cafés para 'Granos Selectos' (16 cafés)
+INSERT INTO "cafe" (nombre, origen, tueste, tienda_nombre, tienda_email, precio, peso)
+VALUES
+  ('Selecto Colombia Excelso', 'Colombia', 'Medio', 'Granos Selectos', 'ventas@granosselectos.com', 10.99, 500),
+  ('Brasil Cerrado Mineiro', 'Brasil', 'Oscuro', 'Granos Selectos', 'ventas@granosselectos.com', 12.50, 750),
+  ('Etiopía Sidamo', 'Etiopía', 'Ligero', 'Granos Selectos', 'ventas@granosselectos.com', 15.25, 250),
+  ('Costa Rica Tres Ríos', 'Costa Rica', 'Medio', 'Granos Selectos', 'ventas@granosselectos.com', 13.75, 1000),
+  ('Guatemala Atitlán', 'Guatemala', 'Oscuro', 'Granos Selectos', 'ventas@granosselectos.com', 14.99, 500),
+  ('Java Jampit', 'Indonesia', 'Ligero', 'Granos Selectos', 'ventas@granosselectos.com', 18.50, 750),
+  ('Perú Cajamarca', 'Perú', 'Medio', 'Granos Selectos', 'ventas@granosselectos.com', 11.25, 500),
+  ('Honduras Copán', 'Honduras', 'Oscuro', 'Granos Selectos', 'ventas@granosselectos.com', 16.00, 250),
+  ('Kenia AB', 'Kenia', 'Ligero', 'Granos Selectos', 'ventas@granosselectos.com', 21.99, 500),
+  ('Nicaragua Segovia', 'Nicaragua', 'Medio', 'Granos Selectos', 'ventas@granosselectos.com', 14.50, 1000),
+  ('México Chiapas', 'México', 'Oscuro', 'Granos Selectos', 'ventas@granosselectos.com', 12.75, 750),
+  ('India Malabar', 'India', 'Ligero', 'Granos Selectos', 'ventas@granosselectos.com', 19.25, 500),
+  ('El Salvador Santa Ana', 'El Salvador', 'Medio', 'Granos Selectos', 'ventas@granosselectos.com', 15.50, 250),
+  ('Tanzania Kilimanjaro', 'Tanzania', 'Oscuro', 'Granos Selectos', 'ventas@granosselectos.com', 17.99, 500),
+  ('Vietnam Arabica', 'Vietnam', 'Ligero', 'Granos Selectos', 'ventas@granosselectos.com', 10.50, 750),
+  ('Ecuador Intag', 'Ecuador', 'Medio', 'Granos Selectos', 'ventas@granosselectos.com', 20.00, 500);

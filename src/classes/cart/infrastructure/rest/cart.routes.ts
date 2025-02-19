@@ -33,13 +33,16 @@ router.get('/', isAuth, async(req:Request, res:Response) => {
     }
 });
 
-router.post('/addCoffe', isAuth, async(req:Request, res:Response) => {
+router.post('/addToCart', isAuth, async(req:Request, res:Response) => {
     try {
         const { nombre , email } = req.body;
         const { coffe } = req.body;
 
+        const cartFromDb = await cartUseCases.addToCart({nombre, email}, coffe);
+        if(cartFromDb)
+            res.status(200).json(cartFromDb)
 
-        const cartFromDb = await cartUseCases.addToCart({nombre, email}, coffe)
+        else res.status(500).send({message:'No hay cart'})
     } catch (error) {
         // Manejar errores
          res.status(500).send({ message: error.message || 'Error interno del servidor' });
