@@ -37,8 +37,11 @@ router.post('/addToCart', isAuth, async(req:Request, res:Response) => {
     try {
         const { nombre , email } = req.body;
         const { coffe } = req.body;
+        console.log(nombre, email);
+        console.log(coffe)
 
         const cartFromDb = await cartUseCases.addToCart({nombre, email}, coffe);
+        console.log(cartFromDb)
         if(cartFromDb)
             res.status(200).json(cartFromDb)
 
@@ -49,5 +52,21 @@ router.post('/addToCart', isAuth, async(req:Request, res:Response) => {
     }
 });
 
+router.post('/decrementCoffe', isAuth, async(req:Request, res:Response) => {
+    try {
+        const { nombre , email } = req.body;
+        const { coffe } = req.body;
+
+        const cartFromDb = await cartUseCases.decrementCoffeCart(coffe, {nombre, email});
+        console.log(cartFromDb)
+        if(cartFromDb)
+            res.status(200).json(cartFromDb)
+
+        else res.status(500).send({message:'No hay cart'})
+    } catch (error) {
+        // Manejar errores
+         res.status(500).send({ message: error.message || 'Error interno del servidor' });
+    }
+});
 
 export { router as routerCarrito };

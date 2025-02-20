@@ -19,4 +19,9 @@ export default class CartUseCases{
 
          return await this.cartRepo.addToCart(coffe, user);
     }
+
+
+    async decrementCoffeCart(cafe:Coffe, user:User){
+        return await this.cartRepo.decrementCoffeCart(cafe, user)
+    }
 }

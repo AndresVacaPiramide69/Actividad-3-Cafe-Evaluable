@@ -5,4 +5,5 @@ export default interface CartRepository{
 
     getCarritoUser(user:User):Promise<Cart[]>
     addToCart(cafe:Coffe, user:User):Promise<Cart[]>
+    decrementCoffeCart(cafe:Coffe, user:User):Promise<Cart[]>
 }

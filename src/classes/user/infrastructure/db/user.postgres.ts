@@ -4,19 +4,9 @@ import executeQuery from "../../../../context/db/postgresdb.connector";
 export default class UserPostgresRepository implements UserRepository{
     
     async createUser(user: User): Promise<User> {
-
         const sql = `INSERT INTO "user" (nombre, email, password, domicilio) VALUES ('${user.nombre}', '${user.email}', '${user.password}', '${user.domicilio}') RETURNING *`;
-
         const rows = await executeQuery(sql);
-
-        const userFromDB:User = {
-            nombre: rows[0].nombre,
-            email: rows[0].email,
-            password: rows[0].password,
-            domicilio: rows[0].domicilio
-        }
-
-        return userFromDB;
+        return rows;
     }
 
     async login(user: User): Promise<User> {
