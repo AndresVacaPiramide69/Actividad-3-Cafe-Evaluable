@@ -8,4 +8,8 @@ export default class CafeUseCases{
     async getAll():Promise<Coffe[]>{
         return this.cafeRepo.getAllCafes()
     }
+
+    async getCafesByFiltro(filtro: Coffe, precioMin:number, precioMax:number, orderByNombre:string){
+        return await this.cafeRepo.getCafesByFiltro(filtro, precioMin, precioMax, orderByNombre);
+    }
 }

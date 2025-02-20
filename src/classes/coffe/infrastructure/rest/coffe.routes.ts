@@ -8,7 +8,6 @@ const cafeRepo:CafeRepository = new CafePostgresRepository();
 const cafeUseCases:CafeUseCases = new CafeUseCases(cafeRepo);
 
 const router = express.Router();
-
 router.get('/', async(req:Request, res:Response) => {
 
     try {
@@ -16,14 +15,33 @@ router.get('/', async(req:Request, res:Response) => {
 
 
         if(!cafes){
-            res.status(401).send({message:'No hay cafes'})
+            res.status(400).send({message:'No hay cafes'})
         }
         res.status(200).send(cafes)
 
     } catch (error) {
-        res.status(401).send({message:error.message})
+        res.status(400).send({message:error.message})
     }
 
+})
+
+router.get('/busqueda', async(req:Request, res:Response) => {
+    try {
+
+        const { precioMin } = req.body;
+        const {precioMax} = req.body;
+        const { orderByNombre } = req.body;
+
+
+        const {coffe} = req.body;
+        const cafes = await cafeUseCases.getCafesByFiltro(coffe, precioMin, precioMax, orderByNombre);
+
+        if(!cafes)
+            res.status(400).send({message:'Error de peticion'})
+        else res.status(200).send(cafes);
+    } catch (error) {
+        res.status(400).send({message:error.message})
+    }
 })
 
 export { router as routerCafes };
