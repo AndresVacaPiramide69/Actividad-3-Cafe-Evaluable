@@ -87,14 +87,13 @@ export default class CartPostgresRepository implements CartRepository {
                 RETURNING *`
             );
             if (!updatedCart || updatedCart.length === 0) throw new Error('No se pudo actualizar el carrito');
-
             return updatedCart;
         }
     }
     async decrementCoffeCart(cafe: Coffe, user: User): Promise<Cart[]> {
 
         const cafeFromDb = await executeQuery(
-            `SSELECT * FROM "cafe" WHERE nombre LIKE \'${cafe.nombre}\'
+            `SELECT * FROM "cafe" WHERE nombre LIKE \'${cafe.nombre}\'
             AND origen LIKE \'${cafe.origen}\' 
             AND tueste LIKE \'${cafe.tueste}\' 
             AND tienda_nombre LIKE \'${cafe.nombreTienda}\' 
@@ -107,8 +106,81 @@ export default class CartPostgresRepository implements CartRepository {
             `SELECT * FROM "user" WHERE nombre = '${user.nombre}' AND email = '${user.email}'`
         )
 
-        if(!userFromDB || cafeFromDb.length === 0)throw new Error("Usuario no encontrado");
-        
+        if (!userFromDB || cafeFromDb.length === 0) throw new Error("Usuario no encontrado");
+
+        const userApi: User = {
+            nombre: userFromDB[0].nombre,
+            email: userFromDB[0].email,
+            password: userFromDB[0].password,
+            domicilio: userFromDB[0].domicilio
+        }
+
+        const cafeApi: Coffe = {
+            nombre: cafeFromDb[0].nombre,
+            origen: cafeFromDb[0].origen,
+            tueste: cafeFromDb[0].tueste,
+            nombreTienda: cafeFromDb[0].tienda_nombre,
+            emailTienda: cafeFromDb[0].tienda_email
+        }
+
+        const cartFromDb = await executeQuery(
+            `SELECT * FROM "carrito" WHERE 
+            user_nombre = '${userApi.nombre}' 
+            AND user_email = '${userApi.email}' 
+            AND cafe_nombre = '${cafeApi.nombre}' 
+            AND cafe_origen = '${cafeApi.origen}' 
+            AND cafe_tueste = '${cafeApi.tueste}' 
+            AND cafe_tienda_nombre = '${cafeApi.nombreTienda}' 
+            AND cafe_tienda_email = '${cafeApi.emailTienda}'`
+        )
+
+        if (cartFromDb[0].cantidad === 1) {
+            const deletedCoffeCart = await executeQuery(
+                `DELETE FROM "carrito" WHERE 
+                user_nombre = '${userApi.nombre}' 
+                AND user_email = '${userApi.email}' 
+                AND cafe_nombre = '${cafeApi.nombre}' 
+                AND cafe_origen = '${cafeApi.origen}' 
+                AND cafe_tueste = '${cafeApi.tueste}' 
+                AND cafe_tienda_nombre = '${cafeApi.nombreTienda}' 
+                AND cafe_tienda_email = '${cafeApi.emailTienda}' 
+                RETURNING *`
+            );
+            if (cartFromDb[0].cantidad === deletedCoffeCart[0].cantidad) throw new Error('No se pudo eliminar el café del carrito');
+            return deletedCoffeCart;
+        } else {
+            const updatedCart = await executeQuery(
+                `UPDATE "carrito" 
+                SET cantidad = cantidad - 1 
+                WHERE user_nombre = '${userApi.nombre}' 
+                AND user_email = '${userApi.email}' 
+                AND cafe_nombre = '${cafeApi.nombre}' 
+                AND cafe_origen = '${cafeApi.origen}' 
+                AND cafe_tueste = '${cafeApi.tueste}' 
+                AND cafe_tienda_nombre = '${cafeApi.nombreTienda}' 
+                AND cafe_tienda_email = '${cafeApi.emailTienda}'
+                RETURNING *`);
+            return updatedCart;
+        }
+    }
+
+    async deleteCafeFromCart(cafe: Coffe, user: User): Promise<Cart[]> {
+        const cafeFromDb = await executeQuery(
+            `SELECT * FROM "cafe" WHERE nombre LIKE \'${cafe.nombre}\'
+            AND origen LIKE \'${cafe.origen}\' 
+            AND tueste LIKE \'${cafe.tueste}\' 
+            AND tienda_nombre LIKE \'${cafe.nombreTienda}\' 
+            AND tienda_email LIKE \'${cafe.emailTienda}\'`
+        )
+
+        if (!cafeFromDb || cafeFromDb.length === 0) throw new Error('No existe el café');
+
+        const userFromDB = await executeQuery(
+            `SELECT * FROM "user" WHERE nombre = '${user.nombre}' AND email = '${user.email}'`
+        )
+
+        if (!userFromDB || cafeFromDb.length === 0) throw new Error("Usuario no encontrado");
+
         const userApi: User = {
             nombre: userFromDB[0].nombre,
             email: userFromDB[0].email,
@@ -126,44 +198,16 @@ export default class CartPostgresRepository implements CartRepository {
             precio: cafeFromDb[0].precio
         }
 
-        const cartFromDb = await executeQuery(
-            `SELECT * FROM "carrito" WHERE 
-            user_nombre = '${userApi.nombre}' 
-            AND user_email = '${userApi.email}' 
-            AND cafe_nombre = '${cafeApi.nombre}' 
-            AND cafe_origen = '${cafeApi.origen}' 
-            AND cafe_tueste = '${cafeApi.tueste}' 
-            AND cafe_tienda_nombre = '${cafeApi.nombreTienda}' 
-            AND cafe_tienda_email = '${cafeApi.emailTienda}'`
+        const cafeDeletedFromCart = await executeQuery(
+            `DELETE FROM "carrito" WHERE user_nombre = '${userApi.nombre}'
+             AND user_email = '${userApi.email}'
+             AND cafe_nombre = '${cafeApi.nombre}'
+             AND cafe_origen = '${cafeApi.origen}'
+             AND cafe_tueste = '${cafeApi.tueste}'
+             AND cafe_tienda_nombre = '${cafeApi.nombreTienda}'
+             AND cafe_tienda_email = '${cafeApi.emailTienda}'`
         )
 
-        if(cartFromDb[0].cantidad === '1'){
-            const deletedCoffeCart = await executeQuery(
-                `DELETE FROM "carrito" WHERE 
-                user_nombre = '${userApi.nombre}' 
-                AND user_email = '${userApi.email}' 
-                AND cafe_nombre = '${cafeApi.nombre}' 
-                AND cafe_origen = '${cafeApi.origen}' 
-                AND cafe_tueste = '${cafeApi.tueste}' 
-                AND cafe_tienda_nombre = '${cafeApi.nombreTienda}' 
-                AND cafe_tienda_email = '${cafeApi.emailTienda}' 
-                RETURNING *`
-            );
-            if (!deletedCoffeCart || deletedCoffeCart.length === 0) throw new Error('No se pudo eliminar el café del carrito');
-            return deletedCoffeCart;
-        }else{
-            const updatedCart = await executeQuery(
-                `UPDATE "carrito" 
-                SET cantidad = cantidad - 1 
-                WHERE user_nombre = '${userApi.nombre}' 
-                AND user_email = '${userApi.email}' 
-                AND cafe_nombre = '${cafeApi.nombre}' 
-                AND cafe_origen = '${cafeApi.origen}' 
-                AND cafe_tueste = '${cafeApi.tueste}' 
-                AND cafe_tienda_nombre = '${cafeApi.nombreTienda}' 
-                AND cafe_tienda_email = '${cafeApi.emailTienda}'
-                RETURNING *`);
-                return updatedCart;
-        }
+        return cafeDeletedFromCart;
     }
 }

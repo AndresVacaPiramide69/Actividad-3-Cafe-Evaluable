@@ -24,4 +24,8 @@ export default class CartUseCases{
     async decrementCoffeCart(cafe:Coffe, user:User){
         return await this.cartRepo.decrementCoffeCart(cafe, user)
     }
+
+    async deleteCoffeFromCart(cafe:Coffe, user:User){
+        return await this.cartRepo.deleteCafeFromCart(cafe, user)
+    }
 }

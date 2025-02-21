@@ -41,7 +41,7 @@ router.post('/addToCart', isAuth, async(req:Request, res:Response) => {
         console.log(coffe)
 
         const cartFromDb = await cartUseCases.addToCart({nombre, email}, coffe);
-        console.log(cartFromDb)
+
         if(cartFromDb)
             res.status(200).json(cartFromDb)
 
@@ -52,10 +52,11 @@ router.post('/addToCart', isAuth, async(req:Request, res:Response) => {
     }
 });
 
-router.post('/decrementCoffe', isAuth, async(req:Request, res:Response) => {
+router.put('/decrementCoffe', isAuth, async(req:Request, res:Response) => {
     try {
         const { nombre , email } = req.body;
         const { coffe } = req.body;
+        console.log(coffe)
 
         const cartFromDb = await cartUseCases.decrementCoffeCart(coffe, {nombre, email});
         console.log(cartFromDb)
@@ -69,4 +70,21 @@ router.post('/decrementCoffe', isAuth, async(req:Request, res:Response) => {
     }
 });
 
+router.delete('/deleteCoffeFromCart', isAuth, async(req:Request, res:Response) => {
+    try {
+        
+        const { nombre, email } = req.body
+        const { coffe } = req.body
+
+        const cartFromDb = await cartUseCases.deleteCoffeFromCart(coffe, { nombre, email })
+
+
+        if(!cartFromDb)
+            res.status(400).send({message:'Error de peticion'})
+
+        else res.status(200).json(cartFromDb)
+    } catch (error) {
+        res.status(400).send({message:error.message})
+    } 
+});
 export { router as routerCarrito };
