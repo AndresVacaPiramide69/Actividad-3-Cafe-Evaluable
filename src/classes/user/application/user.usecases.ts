@@ -41,4 +41,9 @@ export default class UserUseCases{
     async findById(id: number): Promise<User | null> {
         return this.repository.findById(id);
     }
+
+    async changePassword(user:User):Promise<User>{
+        if(!user.password)throw new Error('Faltan datos')
+            else return await this.repository.updatePassword(user);
+    }
 }

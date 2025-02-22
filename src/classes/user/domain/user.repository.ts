@@ -4,4 +4,5 @@ export default interface UserRepository {
     login(user: User): Promise<User>;
     findByEmail(email: string): Promise<User | null>;
     findById(id: number): Promise<User | null>;
+    updatePassword(user:User):Promise<User>
 }

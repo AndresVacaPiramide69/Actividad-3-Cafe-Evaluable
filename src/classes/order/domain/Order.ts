@@ -2,6 +2,6 @@ export default interface Order{
     id?:string,
     fecha?:Date,
     precioTotal?:number,
-    userName?:string,
-    userEmail?:string
+    user_name?:string,
+    user_email?:string
 }
