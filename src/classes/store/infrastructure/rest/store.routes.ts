@@ -51,7 +51,7 @@ router.post('/createStore', async(req:Request, res:Response) => {
     }  
 })
 
-router.get('/nombres', isAuth, async(req:Request, res:Response) => {
+router.get('/nombres', async(req:Request, res:Response) => {
     try {
         
         const nombres = await storeUseCases.getNombreTiendas()

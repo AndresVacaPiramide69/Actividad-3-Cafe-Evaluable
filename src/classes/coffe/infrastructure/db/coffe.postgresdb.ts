@@ -24,10 +24,10 @@ export default class CafePostgresRepository implements CafeRepository {
         orderByNombre: string,
         paginaActual: number
     ): Promise<{ cafes: Coffe[]; currentPage: number; totalCoffes: number; paginasTotales: number }> {
-        
+
         precioMin = precioMin === undefined || isNaN(precioMin) || !precioMin ? 0 : Number(precioMin);
         precioMax = precioMax === undefined || isNaN(precioMax) || !precioMax ? 10000 : Number(precioMax);
-    
+
         const itemsPorPage = 6;
         const offset = (paginaActual - 1) * itemsPorPage;
 
@@ -44,7 +44,7 @@ export default class CafePostgresRepository implements CafeRepository {
             LIMIT ${itemsPorPage}
             OFFSET ${offset}
         `;
-    
+
         // Construcción de la consulta para contar los resultados
         const countQuery = `
             SELECT COUNT(*) as total
@@ -56,17 +56,17 @@ export default class CafePostgresRepository implements CafeRepository {
                 ${filtro.tueste ? `AND tueste = '${filtro.tueste}'` : ''}
                 ${filtro.nombreTienda ? `AND LOWER(unaccent(tienda_nombre)) LIKE LOWER(unaccent('%${filtro.nombreTienda}%'))` : ''}
         `;
-    
+
         // Ejecuta ambas consultas en paralelo
         const [cafes, totalResult] = await Promise.all([
             executeQuery(dataQuery),
             executeQuery(countQuery)
         ]);
-    
+
         // Aseguramos que totalResult[0].total sea un número y calculamos las páginas totales
         const totalCoffes = parseInt(totalResult[0].total) || 0;
         const paginasTotales = Math.ceil(totalCoffes / itemsPorPage);
-    
+
         return {
             cafes: cafes,
             currentPage: paginaActual,
@@ -74,7 +74,7 @@ export default class CafePostgresRepository implements CafeRepository {
             paginasTotales: paginasTotales
         };
     }
-    
+
 
     async getAllTuestes(): Promise<Coffe[]> {
         return await executeQuery('SELECT DISTINCT tueste from "cafe"')
