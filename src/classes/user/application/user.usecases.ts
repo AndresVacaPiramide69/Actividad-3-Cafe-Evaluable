@@ -4,13 +4,13 @@ import UserRepository from "../domain/user.repository";
 import { hash, compare } from '../../../context/security/encrypt';
 
 
-export default class UserUseCases{
-    constructor(private repository: UserRepository){
+export default class UserUseCases {
+    constructor(private repository: UserRepository) {
     }
 
     async createUser(user: User): Promise<User> {
 
-        if(!user.nombre || !user.email || !user.password || !user.domicilio)
+        if (!user.nombre || !user.email || !user.password || !user.domicilio)
             throw new Error('Faltan datos');
 
         user.password = hash(user.password);
@@ -21,14 +21,14 @@ export default class UserUseCases{
 
     async login(user: User): Promise<User> {
 
-        if(!user.email || !user.password)
+        if (!user.email || !user.password)
             throw new Error('Faltan datos');
 
         const userFromDb = await this.repository.login(user)
 
         const equals = compare(user.password, userFromDb.password);
 
-        if(!equals)
+        if (!equals)
             throw new Error('Usuario o contraseña incorrectos');
 
         return userFromDb;
@@ -42,8 +42,11 @@ export default class UserUseCases{
         return this.repository.findById(id);
     }
 
-    async changePassword(user:User):Promise<User>{
-        if(!user.password)throw new Error('Faltan datos')
-            else return await this.repository.updatePassword(user);
+    async changePassword(user: User): Promise<User> {
+        if (!user.password) throw new Error('Faltan datos')
+        else {
+            user.password = hash(user.password)
+            return await this.repository.updatePassword(user);
+        }
     }
 }

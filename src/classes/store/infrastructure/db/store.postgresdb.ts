@@ -1,6 +1,7 @@
 import Store from '../../domain/Store';
 import StoreRepository from '../../domain/store.repository';
 import executeQuery from '../../../../context/db/postgresdb.connector';
+import Coffe from '../../../coffe/domain/Coffe';
 export default class StorePostgresRepository implements StoreRepository {
 
     async getCafesFromTienda(tienda: Store): Promise<Store[]> {
@@ -32,5 +33,27 @@ export default class StorePostgresRepository implements StoreRepository {
 
     async getNombreTiendas(): Promise<Store[]> {
         return await executeQuery('SELECT nombre FROM "tienda"');
+    }
+
+    async createCoffe(cafe: Coffe, tienda: Store): Promise<Coffe> {
+
+        const adminFromDB = await executeQuery(
+            `SELECT * FROM "tienda" WHERE nombre = '${tienda.nombre}' AND email = '${tienda.email}'`
+        )
+
+        if (!adminFromDB.length) {
+            throw new Error('Tienda no encontrada');
+        }
+
+        const insertedCoffe = await executeQuery(
+            `INSERT INTO "cafe" (nombre, origen, tueste, tienda_nombre, tienda_email, precio, peso)
+             VALUES ('${cafe.nombre}', '${cafe.origen}', '${cafe.tueste}', '${tienda.nombre}', '${tienda.email}', ${cafe.precio}, ${cafe.peso}) RETURNING *`
+        );
+
+        if(!insertedCoffe.length)
+            throw new Error('No se ha podido insertar');
+            
+
+        return insertedCoffe[0];
     }
 }

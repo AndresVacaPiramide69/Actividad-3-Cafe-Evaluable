@@ -53,4 +53,20 @@ router.post('/login', async(req:Request, res:Response) => {
     }
 });
 
+router.post('/changePassword', isAuth, async(req:Request, res:Response) => {
+    try {
+        const { password , nombre, email } = req.body;
+        const user:User = {
+            nombre:nombre,
+            email:email,
+            password:password
+        }
+        const changePassword = await userUseCases.changePassword(user);
+
+        res.status(200).send(changePassword)
+    } catch (error) {
+        res.status(400).send({message:error.message})
+    }
+})
+
 export { router as routerUser}

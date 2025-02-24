@@ -61,26 +61,21 @@ export default class UserPostgresRepository implements UserRepository {
     }
 
     async updatePassword(user: User): Promise<User> {
-
-        const userFromDB = await executeQuery(
-            `SELECT * FROM "user" WHERE nombre = '${user.nombre}' AND email = ${user.email}`
-        )
-
         const updatedUser = await executeQuery(
-            `UPDATE "user" SET password = '${user.password}' 
+            `UPDATE "user" SET password = \'${user.password}\' 
              WHERE email = '${user.email}' 
              AND nombre = '${user.nombre}'
              RETURNING *`
         )
 
-        const userApi:User = {
-            nombre:updatedUser[0].nombre,
-            email:updatedUser[0].email
-        } 
+        const userApi: User = {
+            nombre: updatedUser[0].nombre,
+            email: updatedUser[0].email
+        }
 
-        if(!updatedUser || updatedUser.length === 0)
+        if (!updatedUser || updatedUser.length === 0)
             throw new Error('Error de peticion');
-                else return userApi;
+        else return userApi;
     }
 
 }

@@ -62,4 +62,24 @@ router.get('/nombres', async(req:Request, res:Response) => {
     }
 })
 
+router.post('/crear',isAdmin, async(req:Request, res:Response) => {
+    try {
+        
+        const { adminName, adminEmail } = req.body;
+        const adminApi:Store = {
+            nombre:adminName,
+            email:adminEmail
+        }
+
+
+        const { coffe } = req.body;
+
+        const coffeCreated = await storeUseCases.createCoffe(coffe, adminApi)
+        res.status(200).send(coffeCreated)
+
+    } catch (error) {
+        res.status(400).send({message:error.message})
+    }
+})
+
 export { router as routerStore};

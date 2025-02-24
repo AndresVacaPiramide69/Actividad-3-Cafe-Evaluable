@@ -6,10 +6,10 @@ import re
 
 # Configuración de la conexión a PostgreSQL
 DB_PARAMS = {
-    "dbname": "cafe-evaluable",
-    "user": "root",
-    "password": "root1234",
-    "host": "localhost",
+    "dbname": "cafes-evaluable",
+    "user": "postgres",
+    "password": "postgres123",
+    "host": "db-cafes.clu0u0o2607s.us-east-1.rds.amazonaws.com",
     "port": "5432"
 }
 
