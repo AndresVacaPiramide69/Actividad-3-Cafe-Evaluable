@@ -1,2 +1,4 @@
 node_modules/
 *.csv
+mi_entorno/
+src/cafes/*.csv

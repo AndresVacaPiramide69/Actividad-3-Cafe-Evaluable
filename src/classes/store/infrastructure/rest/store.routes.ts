@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { createAdminToken, isAdmin } from '../../../../context/security/auth'
+import { createAdminToken, isAdmin, isAuth } from '../../../../context/security/auth'
 import StoreUseCases from '../../application/coffe.usecases';
 import StoreRepository from '../../domain/store.repository';
 import StorePostgresRepository from '../db/store.postgresdb';
@@ -49,6 +49,17 @@ router.post('/createStore', async(req:Request, res:Response) => {
     } catch (error) {
         res.status(400).send({message:error.message});
     }  
+})
+
+router.get('/nombres', isAuth, async(req:Request, res:Response) => {
+    try {
+        
+        const nombres = await storeUseCases.getNombreTiendas()
+        res.status(200).send(nombres)
+
+    } catch (error) {
+        res.status(400).send({ message:error.message })
+    }
 })
 
 export { router as routerStore};

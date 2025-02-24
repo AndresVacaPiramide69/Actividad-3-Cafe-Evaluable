@@ -4,6 +4,7 @@ import { routerCarrito } from './classes/cart/infrastructure/rest/cart.routes'
 import { routerCafes } from './classes/coffe/infrastructure/rest/coffe.routes'
 import { routerStore } from './classes/store/infrastructure/rest/store.routes'
 import { routerOrder } from './classes/order/infrastructure/rest/order.routes'
+import { routerValoracion } from './classes/valoracion/infrastructure/rest/valoracion.routes'
 import dotenv from 'dotenv'
 import cors from 'cors';
 dotenv.config();
@@ -28,6 +29,7 @@ app.use('/api/cafe', routerCafes);
 app.use('/api/cart', routerCarrito);
 app.use('/api/store', routerStore);
 app.use('/api/order', routerOrder)
+app.use('/api/valoracion', routerValoracion)
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

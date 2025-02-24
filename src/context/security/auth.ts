@@ -22,7 +22,6 @@ const createAdminToken = (tienda:Store, isAdmin:boolean):string => {
 const createToken = (user:User):string => {
     const payload = {
         nombre:user.nombre,
-        direccion:user.domicilio,
         email:user.email
     }
     return jwt.sign(payload, SECRET_KEY, { expiresIn: '1 days'})
@@ -36,7 +35,6 @@ const isAuth = (req:Request, res:Response, next:NextFunction) => {
         if(token){
             const decoded:any = jwt.verify(token, SECRET_KEY);
             req.body.nombre = decoded.nombre;
-            req.body.domicilio = decoded.domicilio
             req.body.email = decoded.email
             next();
         }else{

@@ -23,13 +23,13 @@ router.post('/registro', async(req:Request, res:Response) => {
 
         const userFromDb = await userUseCases.createUser(apiUser)
         if(!userFromDb)
-            res.status(400).send({Mensaje:'Error de creacion del usuario'})
+            res.status(400).send({message:'Error de creacion del usuario'})
         else {
             const token = createToken(userFromDb);
             res.status(201).send({token});
         }
     } catch (error) {
-        res.status(400).json({Mensaje:error.message})
+        res.status(400).json({message:error.message})
     }
 });
 
@@ -43,13 +43,13 @@ router.post('/login', async(req:Request, res:Response) => {
 
         const userFromDb = await userUseCases.login(apiUser)
         if(!userFromDb)
-            res.status(400).send({Mensaje:'Error de inicio de sesion'})
+            res.status(400).send({message:'Error de inicio de sesion'})
         else {
             const token = createToken(userFromDb);
             res.status(201).send({token});
         }
     } catch (error) {
-        res.status(400).json({Mensaje:error.message})
+        res.status(400).json({message:error.message})
     }
 });
 

@@ -17,4 +17,7 @@ export default class StoreUseCases{
         return await this.storeRepo.createTienda(tienda)
     }
     
+    async getNombreTiendas():Promise<Store[]>{
+        return await this.storeRepo.getNombreTiendas();
+    }
 }

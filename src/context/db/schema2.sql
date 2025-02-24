@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS "valoracion" (
         user_email, 
         cafe_nombre, 
         cafe_origen, 
-        cafe_tueste, 
+        cafe_tueste,
         cafe_tienda_nombre, 
         cafe_tienda_email
     ),

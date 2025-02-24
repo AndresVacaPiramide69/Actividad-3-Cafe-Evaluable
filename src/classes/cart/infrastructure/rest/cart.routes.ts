@@ -35,10 +35,10 @@ router.get('/', isAuth, async(req:Request, res:Response) => {
 
 router.post('/addToCart', isAuth, async(req:Request, res:Response) => {
     try {
+        console.log(req.body)
         const { nombre , email } = req.body;
         const { coffe } = req.body;
-        console.log(nombre, email);
-        console.log(coffe)
+        // console.log(nombre, email);
 
         const cartFromDb = await cartUseCases.addToCart({nombre, email}, coffe);
 

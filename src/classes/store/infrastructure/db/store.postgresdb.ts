@@ -29,4 +29,8 @@ export default class StorePostgresRepository implements StoreRepository {
 
         return storeApi;
     }
+
+    async getNombreTiendas(): Promise<Store[]> {
+        return await executeQuery('SELECT nombre FROM "tienda"');
+    }
 }
