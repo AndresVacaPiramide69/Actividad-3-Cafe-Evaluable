@@ -49,6 +49,6 @@ export default class OrderPostgresRepository implements OrderRepository {
              AND user_email = '${user.email}'`
         );
         
-        return insertedOrder;
+        return insertedOrder[0];
     }
 }

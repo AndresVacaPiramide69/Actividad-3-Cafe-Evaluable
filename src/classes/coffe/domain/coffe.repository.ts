@@ -5,6 +5,6 @@ export default interface CafeRepository {
             precioMin: number,
             precioMax: number,
             orderByNombre: string,
-            paginaActual: number): Promise<{ Cafes: Coffe[]; currentPage: number; totalCoffes: number }>
+            paginaActual: number): Promise<{ cafes: Coffe[]; currentPage: number; totalCoffes: number, paginasTotales:number }>
     getAllTuestes():Promise<Coffe[]>
 }

@@ -33,7 +33,6 @@ router.post('/busqueda', async(req:Request, res:Response) => {
         const { orderByNombre } = req.body;
         const { paginaActual } = req.body
 
-
         const {coffe} = req.body;
         const cafes = await cafeUseCases.getCafesByFiltro(coffe, precioMin, precioMax, orderByNombre, paginaActual);
 

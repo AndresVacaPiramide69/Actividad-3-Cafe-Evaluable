@@ -14,7 +14,7 @@ export default class CafeUseCases{
             precioMax: number,
             orderByNombre: string,
             paginaActual: number
-        ): Promise<{ Cafes: Coffe[]; currentPage: number; totalCoffes: number }> {
+        ): Promise<{ cafes: Coffe[]; currentPage: number; totalCoffes: number, paginasTotales:number}> {
         return await this.cafeRepo.getCafesByFiltro(filtro, precioMin, precioMax, orderByNombre, paginaActual);
     }
 
