@@ -6,7 +6,7 @@ export default class UserPostgresRepository implements UserRepository {
     async createUser(user: User): Promise<User> {
         const sql = `INSERT INTO "user" (nombre, email, password, domicilio) VALUES ('${user.nombre}', '${user.email}', '${user.password}', '${user.domicilio}') RETURNING *`;
         const rows = await executeQuery(sql);
-        return rows;
+        return rows[0];
     }
 
     async login(user: User): Promise<User> {
