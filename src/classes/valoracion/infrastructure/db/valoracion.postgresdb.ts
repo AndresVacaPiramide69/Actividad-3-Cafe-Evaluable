@@ -36,7 +36,7 @@ export default class ValoracionPostgresRepository implements ValoracionRepositor
 
     async getCafesParaValorar(user: User): Promise<Coffe[]> {
 
-        const cafesForValidar = await executeQuery(
+        const cafesForValorar = await executeQuery(
             `SELECT 
         c.nombre AS café,
         c.origen,
@@ -69,6 +69,6 @@ export default class ValoracionPostgresRepository implements ValoracionRepositor
         c.nombre, c.origen, c.tueste, t.nombre, 
         c.tienda_nombre, c.tienda_email`
         );
-        return cafesForValidar;
+        return cafesForValorar;
     }
 }
