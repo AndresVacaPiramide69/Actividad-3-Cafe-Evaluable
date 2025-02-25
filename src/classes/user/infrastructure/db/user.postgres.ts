@@ -10,6 +10,7 @@ export default class UserPostgresRepository implements UserRepository {
         const userFromDb: User = {
             nombre: rows[0].nombre,
             email: rows[0].email,
+            password:rows[0].password,
             domicilio: rows[0].domicilio
         }
         return userFromDb;
