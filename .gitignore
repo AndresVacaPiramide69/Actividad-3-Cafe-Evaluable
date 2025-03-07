@@ -1,4 +1,4 @@
 node_modules/
 *.csv
-mi_entorno/
+entorno_cafe/
 src/cafes/*.csv
